@@ -10,13 +10,12 @@ D=3 #Dimension
 l=.2 # The Boundary is X=-l plane
 F=np.zeros(shape=2*D) 
 X=np.zeros(shape=2*D) #The first half of this array are position co-ordinates, Second half velcity co-ordinates in the same order.
-def gamma(X): # this function gives the value of gamma, the friciton coefficient.  
+def gamma(): # this function gives the value of gamma, the friciton coefficient.  
 	return 6*3.14*eta*a 
-	#return 6*3.14*eta*a*(1+9/8*(a/(X[0]+l)))
 def Func(X):# This function 
 	W=np.random.normal(0,1,D)# the Gaussian-white noise, independent noise for each co-ordinate.
 	for i in range (0,D): # The funtion in the runge-kutta scheme.
-		F[i+D]=(-gamma(X)*X[i+D]-k/m*X[i])*delta+((2*gamma(X)/beta*m)**2)*W[i]*delta
+		F[i+D]=(-gamma()*X[i+D]-k/m*X[i])*delta+((2*gamma()/beta*m)**2)*W[i]*delta
 		F[i]=X[i+D]*delta
 	return F
 K1=np.zeros(shape=2*D)
