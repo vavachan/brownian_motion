@@ -5,7 +5,7 @@
 #	      B_v(x,v)=sqrt(2*gamma*KB*T)/m
 #	      A_x(x,v)=v
 #	      B_x(x,v)=0
-
+# choose 1 for Runge-kutta and 2 for Euler-Maruyama 
 m=1
 omega=0
 eta=1
