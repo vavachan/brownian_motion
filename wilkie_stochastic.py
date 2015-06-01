@@ -23,7 +23,7 @@ class wilkie_stoch():
 			K4[:]=F(X+K3)
 			X[:]=X+1.0/6*(K1+2*K2+2*K3+K4)
 			self.X_all[i][:]=X
-X=np.zeros(shape=2*D)		
+X=np.zeros(shape=2*D)	#initial condition (all zero)	
 B=wilkie_stoch(X,N)
 B.RK()
 infile=open("all_data.dat","w")
