@@ -36,7 +36,7 @@ import sde
 import numpy as np
 
 X_ini=[0.0,0.0]
-solver = sde.ito(N,dt,drift,diffusion,jac_diff,D,1) 
+solver = sde.ito(N,dt,drift,diffusion,jac_diff,D,1) #last entry is the choice
 solver.set_initial_condition(X_ini)
 x=solver.solve()
 infile=open("Time_position_velocity","w")
