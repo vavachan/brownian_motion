@@ -79,6 +79,10 @@ class ito ():
 			K[:]=self.B(self.X_all[i-1][:])
 		        winc[:]=self.W[i][:]-self.W[i-1][:]
 			for j in range (0,self.D):
+<<<<<<< HEAD
+=======
+#				print K[j]
+>>>>>>> 121c2b8453e1d85e2220be90e3d91675b723f329
 				B1[j]=winc[j]*K[j]
 		        self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
 	def solve(self):
