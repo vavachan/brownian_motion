@@ -1,11 +1,7 @@
-#	The equation I am giving here as an example is 
-#		dv=A_v(x,v)dt+B_v(x,v)dt
-#		dx=A_x(x,v)dt+B_x(x,v)dt
-#	where A_v(x,v)=-gamma/m*v-omega^2*x
-#	      B_v(x,v)=sqrt(2*gamma*KB*T)/m
-#	      A_x(x,v)=v
-#	      B_x(x,v)=0
-# choose 1 for Runge-kutta and 2 for Euler-Maruyama 
+#here I have given a sample coupled stochastic differential equation.
+#Its example 3 in Joshua Wilkie's paper. the program will generate a file called t_X'1_X'2_X1_X2.dat 
+#in which column 1 and column 2 are the values found by integration and column 3 and 4 are the corresponding value 
+#from analytic solution.
 m=0.5
 omega=1
 eta=1
