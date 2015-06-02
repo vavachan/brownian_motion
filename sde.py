@@ -1,8 +1,9 @@
 import numpy as np
 
 class ito ():
-	def __init__(self,N,dt,A,B,B_der,D,choice=1):
+	def __init__(self,N,dt,A,B,B_der,D,M,choice=1):
 		self.choice=choice
+		self.M=M
 		self.D=D
                 self.A=A
 		self.B=B
@@ -10,22 +11,41 @@ class ito ():
                 self.N=N
 		self.dt=dt
                 self.X_all=np.zeros(shape=(self.N,self.D))
-                self.dW=np.zeros(shape=(self.N,self.D))
-                self.W=np.zeros(shape=(self.N+1,D))
+                self.dW=np.zeros(shape=(self.N,self.M))
+                self.W=np.zeros(shape=(self.N+1,M))
+	def multiply(self,A,B):
+		temp=np.zeros(shape=self.D)
+		for j in range (0,self.D):
+			ten=(B[j][:][:])
+			ten1=np.transpose(ten)
+			#print ten
+			#print ten1
+			#print A
+			sum2=0
+			for k in range (0,self.M):
+				sum1=0
+				for i in range (0,self.D):
+					sum1=sum1+A[k][i]*ten1[i][k]
+				sum2=sum2+sum1
+			temp[j]=sum2
+		return temp	
+			
 	def F(self,X,W):
 		D=self.D
-	        B1=np.zeros(shape=D)
-		K=np.zeros(shape=self.D)
+		M=self.M
+	        B1=np.zeros(shape=(D,M))
+		K=np.zeros(shape=(D,M))
 	        K=self.B(X)
-	        for i in range (0,D):
-	                B1[i]=K[i]*W[i]
-	        F1=(self.A(X)-0.5*np.dot(self.B(X),self.B_der(X)))*self.dt+B1
-       	        return F1
+		#print self.B(X)
+	        B1=np.dot(K,W)
+		#print K,W,B1
+		F1=(self.A(X)-0.5*self.multiply((np.transpose(self.B(X))),self.B_der(X)))*self.dt+B1
+		return F1
 	def weiner(self):
-		D=self.D
+		M=self.M
                 for i in range (0,self.N):
-                        self.dW[i][:]=self.dt**(.5)*np.random.normal(0,1,D)
-                for j in range (0,D):
+                        self.dW[i][:]=self.dt**(.5)*np.random.normal(0,1,M)
+                for j in range (0,M):
                         sum1=0
                         for i in range (1,self.N+1):
                                 sum1=sum1+self.dW[i-1][j]
@@ -40,6 +60,7 @@ class ito ():
                 K4=np.zeros(shape=D)
                 X=np.zeros(shape=D)
                 X[:]=self.iniX
+		self.X_all[0][:]=self.iniX
                 for i in range (1,self.N):
                         K1[:]=self.F(X,self.dW[i-1][:])
                         K2[:]=self.F(X+0.5*K1,self.dW[i-1][:])
@@ -50,18 +71,15 @@ class ito ():
                         self.X_all[i][:]=X
        
 	def em(self):
-#		print self.D
 		self.weiner()
 		B1=np.zeros(shape=self.D)
 		winc=np.zeros(shape=self.D)
 		K=np.zeros(shape=self.D)
-#		print K
 		for i in range (1,self.N):
 			K[:]=self.B(self.X_all[i-1][:])
 		        winc[:]=self.W[i][:]-self.W[i-1][:]
 			for j in range (0,self.D):
-#				print K[j]
-				B1=winc[j]*K[j]
+				B1[j]=winc[j]*K[j]
 		        self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
 	def solve(self):
 		if self.choice == 1:
@@ -75,5 +93,5 @@ class ito ():
 			exit()
 		return self.X_all
 
-	def set_initial_condition(self,X_ini=0):
+	def set_initial_condition(self,X_ini):
 		self.iniX=X_ini
