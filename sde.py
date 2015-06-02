@@ -61,7 +61,7 @@ class ito ():
 		        winc[:]=self.W[i][:]-self.W[i-1][:]
 			for j in range (0,self.D):
 #				print K[j]
-				B1=winc[j]*K[j]
+				B1[j]=winc[j]*K[j]
 		        self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
 	def solve(self):
 		if self.choice == 1:
