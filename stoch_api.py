@@ -45,13 +45,10 @@ def jac_diff(X):
 	return temp
 import sde
 
-<<<<<<< HEAD
+
 X_ini=[1.0,0.0]
 solver = sde.ito(N,dt,drift,diffusion,jac_diff,D,M,1) 
-=======
-X_ini=[0.0,0.0]
-solver = sde.ito(N,dt,drift,diffusion,jac_diff,D,1) #last entry is the choice
->>>>>>> 121c2b8453e1d85e2220be90e3d91675b723f329
+
 solver.set_initial_condition(X_ini)
 x=solver.solve()
 X=np.zeros(shape=N)
