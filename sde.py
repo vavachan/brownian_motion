@@ -18,6 +18,9 @@ class ito ():
 		for j in range (0,self.D):
 			ten=(B[j][:][:])
 			ten1=np.transpose(ten)
+			#print ten
+			#print ten1
+			#print A
 			sum2=0
 			for k in range (0,self.M):
 				sum1=0
@@ -33,7 +36,9 @@ class ito ():
 	        B1=np.zeros(shape=(D,M))
 		K=np.zeros(shape=(D,M))
 	        K=self.B(X)
+		#print self.B(X)
 	        B1=np.dot(K,W)
+		#print K,W,B1
 		F1=(self.A(X)-0.5*self.multiply((np.transpose(self.B(X))),self.B_der(X)))*self.dt+B1
 		return F1
 	def weiner(self):
@@ -69,18 +74,19 @@ class ito ():
 		self.weiner()
 		B1=np.zeros(shape=self.D)
 		winc=np.zeros(shape=self.D)
-		K=np.zeros(shape=(self.D,self.M))
+		K=np.zeros(shape=self.D)
 		for i in range (1,self.N):
-			K=self.B(self.X_all[i-1][:])
+			K[:]=self.B(self.X_all[i-1][:])
 		        winc[:]=self.W[i][:]-self.W[i-1][:]
-		        B1=np.dot(K,winc)
-			self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
+			for j in range (0,self.D):
+				B1[j]=winc[j]*K[j]
+		        self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
 	def solve(self):
 		if self.choice == 1:
 			print 'RK'
 			self.RK()
 		if self.choice == 2:
-			print 'Euler-Maruyama'
+			print 'em'
 			self.em()
 		if self.choice != 1 and self.choice != 2: 
 			print 'wrong choice',self.choice
