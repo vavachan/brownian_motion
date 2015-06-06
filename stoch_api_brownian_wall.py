@@ -11,13 +11,7 @@ N=1000000
 Xzero=0
 shift=0
 import numpy as np
-#def force(x):
-#	if x>(1.2446*sigma):
-#		return 0
-#	else :
-#		print 'ayyo'
-#       	return 4*epsilon*(12*sigma**12/(x**13)-6*sigma**6/(x**7))-shift#force(1.244*sigma)
-#shift=force(1.2446*sigma)
+
 def gamma_par(X):
 	#return .5
 	return 6*3.14*eta*a*(1+(9.0/16)*(a*1.0/X[1]))
