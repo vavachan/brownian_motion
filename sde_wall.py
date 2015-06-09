@@ -74,9 +74,9 @@ class ito ():
 		        winc[:]=self.W[i][:]-self.W[i-1][:]
 		        B1=np.dot(K,winc)
 			self.X_all[i][:] = self.X_all[i-1][:] + self.dt*self.A(self.X_all[i-1][:]) + B1
-			if self.X_all[i][1] < 0:
-				self.X_all[i][3]=-1*self.X_all[i][3]
-				self.X_all[i][1]=-1*self.X_all[i][1]
+	#		if self.X_all[i][1] < 0:
+	#			self.X_all[i][3]=-1*self.X_all[i][3]
+	#			self.X_all[i][1]=-1*self.X_all[i][1]
 		#	print i*self.dt,' ',self.dt*self.A(self.X_all[i-1][:])[3],' ',B1[3],' ',self.X_all[i][1],' ',self.X_all[i][3]
 	def solve(self):
 		if self.choice == 1:
